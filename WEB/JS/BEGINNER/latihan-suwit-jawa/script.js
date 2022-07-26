@@ -22,62 +22,125 @@ function getHasil(comp, player){
 }
 
 
-//MENJALANKAN LISTENER
-//ketika player meng klik gajah (jempol)
-const info = document.querySelector('.info');
-const imgComputer = document.querySelector('.img-computer');
-const pGajah = document.querySelector('.gajah');
-pGajah.addEventListener('click', function(){
-    //kita ambil pilihan komputer
+function putarPilihanComputer(){
+    const imgComputer = document.querySelector('.img-computer');
+    const gambar = ['gajah','semut','orang'];
+
+    let i = 0;
+    //waktu awal 
+    //DIMANA SAAT FUNGSI PUTAR DIPANGGIL , MAKA AKAN MENGAMBIL WAKTU SAAT ITU , UNTUK MENDAPATKAN WAKT USAAT ITU
+    const waktuMulai = new Date().getTime();
+
+    setInterval(function(){
+        //apakah sudah 1 second
+        //APABILA WAKTU NYA SELISIH NYA SUDAH 1 DETIK (1000ms)
+        if(new Date().getTime()-waktuMulai>1000)
+        {
+            clearInterval; //maka berhentikan 
+            return;
+        }
+
+        imgComputer.setAttribute('src','img/'+ gambar[i++] +'.png');
+        if(i == gambar.length) i=0;
+    },100)
+}
+
+
+
+
+//ambil semua element dihalaman(menhasilkan node list)
+const choosen = document.querySelectorAll('li img');
+//LOOPING TIAP IMAGE
+//UNTUK SETIAP IMAGE YANG ADA PADA LIST CHOOSEN , JALANKAN FUNCTION BERIKUT
+//PILIHAN , DIGUNAKAN UNTUK PASSING DARI IMAGE YANG ADA DIDALAM LIST
+choosen.forEach(function(pilihan){
+    //UNTUK GAMBAR YANG DI KLIK
+    pilihan.addEventListener('click',function(){
+        // console.log(pilihan);
+        
     const pilihanKomputer = getPiihanComputer();
-    const pilihanPlayer = pGajah.className;
+    const pilihanPlayer = pilihan.className;
 
     const hasil = getHasil(pilihanKomputer, pilihanPlayer);
+    const info = document.querySelector('.info');
+
+    putarPilihanComputer();
+    //MENUNGGU SELAMA SATU DETIK, LALU JALANKAN FUNCTION BERIKUT (NUNGGU MEMUTAR DULU)
+    setTimeout(function() {
+        const imgComputer = document.querySelector('.img-computer');
+        imgComputer.setAttribute('src','img/'+pilihanKomputer+'.png'); //kebetulan nama fiel nya sesuai
+        info.innerHTML = '<h5>'+hasil+'</h5>';
+    },1000);
+
+
+    const imgComputer = document.querySelector('.img-computer');
     imgComputer.setAttribute('src','img/'+pilihanKomputer+'.png'); //kebetulan nama fiel nya sesuai
     info.innerHTML = '<h5>'+hasil+'</h5>';
+
+    
+    })
+ 
+})
+
+
+
+
+// //MENJALANKAN LISTENER
+// //ketika player meng klik gajah (jempol)
+// const info = document.querySelector('.info');
+// const imgComputer = document.querySelector('.img-computer');
+// const pGajah = document.querySelector('.gajah');
+// pGajah.addEventListener('click', function(){
+//     //kita ambil pilihan komputer
+//     const pilihanKomputer = getPiihanComputer();
+//     const pilihanPlayer = pGajah.className;
+
+//     const hasil = getHasil(pilihanKomputer, pilihanPlayer);
+//     imgComputer.setAttribute('src','img/'+pilihanKomputer+'.png'); //kebetulan nama fiel nya sesuai
+//     info.innerHTML = '<h5>'+hasil+'</h5>';
 
     
   
-    console.log("computer : " + pilihanKomputer);
-    console.log("player : " + pilihanPlayer);
-    console.log(hasil);
+//     console.log("computer : " + pilihanKomputer);
+//     console.log("player : " + pilihanPlayer);
+//     console.log(hasil);
 
-    // alert("ANDA "+ hasil);
-});
+//     // alert("ANDA "+ hasil);
+// });
 
 
-const pOrang = document.querySelector('.orang');
-pOrang.addEventListener('click', function(){
-    //kita ambil pilihan komputer
-    const pilihanKomputer = getPiihanComputer();
-    const pilihanPlayer = pOrang.className;
+// const pOrang = document.querySelector('.orang');
+// pOrang.addEventListener('click', function(){
+//     //kita ambil pilihan komputer
+//     const pilihanKomputer = getPiihanComputer();
+//     const pilihanPlayer = pOrang.className;
 
-    const hasil = getHasil(pilihanKomputer, pilihanPlayer);
-    imgComputer.setAttribute('src','img/'+pilihanKomputer+'.png'); //kebetulan nama fiel nya sesuai
-    info.innerHTML = '<h5>'+hasil+'</h5>';
+//     const hasil = getHasil(pilihanKomputer, pilihanPlayer);
+//     imgComputer.setAttribute('src','img/'+pilihanKomputer+'.png'); //kebetulan nama fiel nya sesuai
+//     info.innerHTML = '<h5>'+hasil+'</h5>';
     
-    console.log("computer : " + pilihanKomputer);
-    console.log("player : " + pilihanPlayer);
-    console.log(hasil);
+//     console.log("computer : " + pilihanKomputer);
+//     console.log("player : " + pilihanPlayer);
+//     console.log(hasil);
 
-    // alert("ANDA "+ hasil);
-});
+//     // alert("ANDA "+ hasil);
+// });
 
 
 
-const pSemut = document.querySelector('.semut');
-pSemut.addEventListener('click', function(){
-    //kita ambil pilihan komputer
-    const pilihanKomputer = getPiihanComputer();
-    const pilihanPlayer = pSemut.className;
+// const pSemut = document.querySelector('.semut');
+// pSemut.addEventListener('click', function(){
+//     //kita ambil pilihan komputer
+//     const pilihanKomputer = getPiihanComputer();
+//     const pilihanPlayer = pSemut.className;
 
-    const hasil = getHasil(pilihanKomputer, pilihanPlayer);
-    //set gambar komputer nya 
-    imgComputer.setAttribute('src','img/'+pilihanKomputer+'.png'); //kebetulan nama fiel nya sesuai
-    info.innerHTML = '<h5>'+hasil+'</h5>';
-    console.log("computer : " + pilihanKomputer);
-    console.log("player : " + pilihanPlayer);
-    console.log(hasil);
+//     const hasil = getHasil(pilihanKomputer, pilihanPlayer);
+//     //set gambar komputer nya 
+//     imgComputer.setAttribute('src','img/'+pilihanKomputer+'.png'); //kebetulan nama fiel nya sesuai
+//     info.innerHTML = '<h5>'+hasil+'</h5>';
+//     console.log("computer : " + pilihanKomputer);
+//     console.log("player : " + pilihanPlayer);
+//     console.log(hasil);
 
-    // alert("ANDA "+ hasil);
-});
+//     // alert("ANDA "+ hasil);
+// });
