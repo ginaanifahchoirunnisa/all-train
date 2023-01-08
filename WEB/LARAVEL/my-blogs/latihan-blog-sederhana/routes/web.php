@@ -42,14 +42,6 @@ Route::get('/blog', function () {
 
 // single post
 Route::get('posts/{slug}', function($slug){
-    // $blog_posts = Post::all();
-    // mengecek persamaan nilai post dan slug
-    // $post_contain=[];
-    // foreach($blog_posts as $post){
-    //     if($post["slug"] === $slug) {//jika post === slug, maka ambil nilai dari data yang sesuai dengan slug tersebut (data terpaksa duplikat karena masih statis)
-    //         $post_contain= $post;
-    //     }
-    // }
     return view('post', [
         "title" => "Single Post",
         "post" => Post::getSinglePost($slug)

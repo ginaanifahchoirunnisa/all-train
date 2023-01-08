@@ -31,19 +31,21 @@ class Post
     ];
 
     public static function all(){
-        return self::$blog_posts; 
+        //diubah menjadi bentuk collection
+        return collect(self::$blog_posts); 
     }
 
 
     public static function getSinglePost($slug){
-        $post_contain = []; //postingan yang ketemu akan di tampung disiniy
-        foreach(self::$blog_posts as $post){
-        if($post["slug"] === $slug) {//jika post === slug, maka ambil nilai dari data yang sesuai dengan slug tersebut (data terpaksa duplikat karena masih statis)
-            $post_contain= $post;
-        }
-    }
+        $posts = static::all();
+    //     $post_contain = []; //postingan yang ketemu akan di tampung disiniy
+    //     foreach( $posts as $post){
+    //     if($post["slug"] === $slug) {//jika post === slug, maka ambil nilai dari data yang sesuai dengan slug tersebut (data terpaksa duplikat karena masih statis)
+    //         $post_contain= $post;
+    //     }
+    // }
 
-    return $post_contain;
+    return $posts->firstWhere('slug', $slug);
     }
 
     
